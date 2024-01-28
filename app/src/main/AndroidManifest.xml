@@ -14,17 +14,19 @@
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectorNivelesActivity" />
-        <activity android:name=".PuntuacionesMenuActivity"/>
-        <activity android:name="com.example.puzzle_anibalbenedicto.Niveles.NivelUnoActivity" />
-        <activity android:name="com.example.puzzle_anibalbenedicto.Puntuaziones.PuntuacionNvlUnoActivity"/>
-        <activity android:name="com.example.puzzle_anibalbenedicto.Puntuaziones.PuntuacionNvlDosActivity"/>
+        <activity android:name=".SelectorNivelesActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".PuntuacionesMenuActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.example.puzzle_anibalbenedicto.Niveles.NivelUnoActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.example.puzzle_anibalbenedicto.Puntuaziones.PuntuacionNvlUnoActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.example.puzzle_anibalbenedicto.Puntuaziones.PuntuacionNvlDosActivity" android:configChanges="orientation|screenSize"/>
 
 
     </application>

@@ -24,27 +24,8 @@ public class PuntuacionNvlUnoActivity extends AppCompatActivity {
 
         // Consultar las puntuaciones del nivel 1 desde la base de datos
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String[] projection = {
-                DatabaseHelper.getColumnId(),
-                DatabaseHelper.getColumnName(),
-                DatabaseHelper.getColumnScore(),
-                DatabaseHelper.getColumnNivelUnoScore()
-        };
-
-        String selection = DatabaseHelper.getColumnNivelUnoId() + " = ?";
-        String[] selectionArgs = {"1"}; // Puedes cambiar esto según tus necesidades
-
-        Cursor cursor = db.query(
-                DatabaseHelper.getTableScoresNivelUno(),
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                DatabaseHelper.getColumnNivelUnoScore() + " ASC" // Puedes ordenar por score
-        );
+        Cursor cursor = dbHelper.getAllScoresNivelUno();  // Llama al método aquí
 
         // Configurar el adaptador en la lista utilizando SimpleCursorAdapter
         String[] fromColumns = {DatabaseHelper.getColumnName(), DatabaseHelper.getColumnNivelUnoScore()};
@@ -61,9 +42,8 @@ public class PuntuacionNvlUnoActivity extends AppCompatActivity {
 
         listViewPuntuaciones.setAdapter(adapter);
 
-        // Cerrar el cursor y la conexión a la base de datos
+        // Cerrar el cursor (la base de datos se cerrará internamente si es necesario)
         cursor.close();
-        db.close();
     }
 }
 

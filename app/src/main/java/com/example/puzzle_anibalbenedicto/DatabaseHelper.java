@@ -110,14 +110,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Métodos para agregar puntuaciones
-    public void addScore(String name, int score) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_SCORE, score);
-        db.insert(TABLE_SCORES, null, values);
-        db.close();
-    }
 
     public void addScoreNivelUno(String name, int score) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -127,7 +119,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NIVEL_UNO_ID, 1);
         values.put(COLUMN_NIVEL_UNO_SCORE, score);
         db.insert(TABLE_SCORES_NIVEL_UNO, null, values);
-        db.close();
     }
 
     public void addScoreNivelDos(String name, int score) {
@@ -149,6 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {"1"};
         return db.query(TABLE_SCORES_NIVEL_UNO, projection, selection, selectionArgs, null, null, COLUMN_NIVEL_UNO_SCORE + " ASC");
     }
+
 
     // Método para obtener todas las puntuaciones del nivel dos
     public Cursor getAllScoresNivelDos() {

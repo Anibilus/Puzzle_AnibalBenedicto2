@@ -106,5 +106,15 @@
             android:text="Intentos: 0"
             android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/buttonFinalizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewIntentos"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Finalizar Puzzle" />
+
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

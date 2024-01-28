@@ -3,6 +3,7 @@ package com.example.puzzle_anibalbenedicto;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -14,12 +15,15 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private EditText editNombre;
+    private MediaPlayer mediaPlayer;
+    private boolean isMusicPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nombre_aplicacion);
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.background_music);
         editNombre = findViewById(R.id.editNombre);
         Button btnEmpezar = findViewById(R.id.btnEmpezar);
         Button btnPuntuaciones = findViewById(R.id.btnPuntuaciones);
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                     // Mostrar un mensaje de error si no se ingresó un nombre
                     Toast.makeText(MainActivity.this, "Por favor, ingrese su nombre", Toast.LENGTH_SHORT).show();
                 }
+
+                // Iniciar o pausar la música según el estado actual
+                toggleMusic();
             }
         });
 
@@ -54,7 +61,31 @@ public class MainActivity extends AppCompatActivity {
                 // Ir a puntuaciones
                 Intent intent = new Intent(MainActivity.this, PuntuacionesMenuActivity.class);
                 startActivity(intent);
+
+                // Iniciar o pausar la música según el estado actual
+                toggleMusic();
             }
         });
+    }
+
+    private void toggleMusic() {
+        if (isMusicPlaying) {
+            // Pausar la música
+            mediaPlayer.pause();
+        } else {
+            // Iniciar la música
+            mediaPlayer.start();
+        }
+
+        isMusicPlaying = !isMusicPlaying; // Cambiar el estado
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Liberar recursos del MediaPlayer al salir de la actividad
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+        }
     }
 }
