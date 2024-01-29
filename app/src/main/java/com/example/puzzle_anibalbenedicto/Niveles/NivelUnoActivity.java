@@ -1,6 +1,7 @@
 package com.example.puzzle_anibalbenedicto.Niveles;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -31,7 +32,7 @@ public class NivelUnoActivity extends AppCompatActivity {
     private static final int COLUMNAS = 4;
     private ImageButton[][] imageButtons;
     private ImageButton selectedImageButton;
-    private int intentos = 0; // Contador de intentos
+    private int intentos = 0;
     private TextView textViewIntentos;
     private DatabaseHelper dbHelper;
     private Button buttonFinalizar;
@@ -64,76 +65,64 @@ public class NivelUnoActivity extends AppCompatActivity {
         buttonFinalizar = findViewById(R.id.buttonFinalizar);
         buttonFinalizar.setOnClickListener(v -> onFinalizarClick());
         dbHelper = new DatabaseHelper(this);
-        // Obtener el GridLayout y el TextView
         GridLayout gridLayout = findViewById(R.id.gridLayoutNivelUno);
         textViewIntentos = findViewById(R.id.textViewIntentos);
-
-        // Inicializar la matriz de ImageButton
+        textViewIntentos = findViewById(R.id.textViewIntentos);
         imageButtons = new ImageButton[FILAS][COLUMNAS];
-
-        // Llenar la matriz con referencias a los ImageButton en el GridLayout y asignar OnClickListener
         for (int i = 0; i < FILAS; i++) {
             for (int j = 0; j < COLUMNAS; j++) {
                 String buttonID = "imageButton" + ((i * COLUMNAS) + j + 1);
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 imageButtons[i][j] = findViewById(resID);
-
-                // Añadir OnClickListener a cada ImageButton
                 imageButtons[i][j].setOnClickListener(v -> onImageButtonClick((ImageButton) v));
             }
         }
-
-        // Desordenar las imágenes después de crear los ImageButton
         shuffleImagesInGridLayout();
+        Intent intent = getIntent();
+        String nombrePersona = intent.getStringExtra("nombrePersona");
+
+        TextView textViewOrdena = findViewById(R.id.textViewOrdena);
+        String nombreJugador=getPlayerName();
+        textViewOrdena.setText("Ordena el Puzzle " + nombreJugador);
     }
     private void onImageButtonClick(ImageButton clickedImageButton) {
         if (selectedImageButton == null) {
-            // No hay ninguna imagen seleccionada, seleccionar la actual
             selectedImageButton = clickedImageButton;
         } else {
-            // Intercambiar las imágenes
             Drawable tempDrawable = selectedImageButton.getDrawable();
             selectedImageButton.setImageDrawable(clickedImageButton.getDrawable());
             clickedImageButton.setImageDrawable(tempDrawable);
-
-            // Incrementar el contador de intentos
             intentos++;
 
-            // Reiniciar la imagen seleccionada
             selectedImageButton = null;
-
-            // Actualizar el contador de intentos
             updateIntentosCounter();
         }
     }
-
-    // Método para actualizar el contador de intentos en el TextView
     private void updateIntentosCounter() {
         textViewIntentos.setText("Intentos: " + intentos);
     }
     private void onFinalizarClick() {
-        // Guardar la puntuación en la base de datos
-        saveScore();
-
-
-        // Mostrar Toast indicando que la puntuación se ha guardado
+        String nombreJugador = getPlayerName();
+        saveScore(nombreJugador);
         Toast.makeText(this, "Tu puntuación se ha guardado", Toast.LENGTH_SHORT).show();
-
-        // Regresar al MainActivity
         Intent intent = new Intent(NivelUnoActivity.this, MainActivity.class);
         startActivity(intent);
-        finish(); // Cierra la actividad actual para evitar que el usuario vuelva atrás
+        finish();
     }
-    private void saveScore() {
-        // Asegúrate de que dbHelper no es nulo antes de usarlo
-        if (dbHelper != null) {
-            // Obtener el nombre del jugador (puedes implementar la lógica para obtener el nombre)
-            String nombreJugador = "NombrePorDefecto";
 
-            // Guardar la puntuación en la base de datos utilizando DatabaseHelper
+    private void saveScore(String nombreJugador) {
+
+        if (dbHelper != null) {
+
             dbHelper.addScoreNivelUno(nombreJugador, intentos);
         }
     }
+
+    private String getPlayerName() {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("UsuarioPreferences", MODE_PRIVATE);
+        return preferences.getString("nombreUsuario", "NombrePorDefecto");
+    }
+
 
     /**private boolean compareDrawables(Drawable drawable1, Drawable drawable2) {
         if (drawable1 == null && drawable2 == null) {

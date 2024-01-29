@@ -33,7 +33,7 @@ public class PuntuacionNvlUnoActivity extends AppCompatActivity {
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 this,
-                android.R.layout.simple_list_item_2, // Diseño predeterminado de Android con dos líneas
+                android.R.layout.simple_list_item_2,
                 cursor,
                 fromColumns,
                 toViews,
@@ -42,8 +42,7 @@ public class PuntuacionNvlUnoActivity extends AppCompatActivity {
 
         listViewPuntuaciones.setAdapter(adapter);
 
-        // Cerrar el cursor (la base de datos se cerrará internamente si es necesario)
-        cursor.close();
+
     }
 }
 

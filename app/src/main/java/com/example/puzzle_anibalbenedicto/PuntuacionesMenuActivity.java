@@ -34,6 +34,15 @@ public class PuntuacionesMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //boton para volver a mainActivity
+        Button btnVolverMenu = findViewById(R.id.btnMenu);
+        btnVolverMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PuntuacionesMenuActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

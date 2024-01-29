@@ -1,13 +1,17 @@
 package com.example.puzzle_anibalbenedicto.Puntuaziones;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.puzzle_anibalbenedicto.DatabaseHelper;
+import com.example.puzzle_anibalbenedicto.MainActivity;
 import com.example.puzzle_anibalbenedicto.R;
 public class PuntuacionNvlDosActivity extends AppCompatActivity {
 
@@ -58,9 +62,14 @@ public class PuntuacionNvlDosActivity extends AppCompatActivity {
         );
 
         listViewPuntuaciones.setAdapter(adapter);
-
-        // Cerrar el cursor y la conexión a la base de datos
-        cursor.close();
-        db.close();
+        //boton para volver al mainActivity
+        Button btnVolverMenu = findViewById(R.id.btnVolverMenu);
+        btnVolverMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PuntuacionNvlDosActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

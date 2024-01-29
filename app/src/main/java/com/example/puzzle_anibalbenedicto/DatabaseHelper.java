@@ -129,7 +129,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NIVEL_DOS_ID, 2);
         values.put(COLUMN_NIVEL_DOS_SCORE, score);
         db.insert(TABLE_SCORES_NIVEL_DOS, null, values);
-        db.close();
     }
 
     // Método para obtener todas las puntuaciones del nivel uno

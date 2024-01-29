@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Liberar recursos del MediaPlayer al salir de la actividad
         if (mediaPlayer != null) {
             mediaPlayer.release();
         }
