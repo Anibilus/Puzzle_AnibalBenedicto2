@@ -24,17 +24,14 @@ public class PuntuacionNvlUnoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.puntuaciones_nvl1);
-
         listViewPuntuaciones = findViewById(R.id.listViewPuntuacionesNvlUno);
-
-        // Consultar las puntuaciones del nivel 1 desde la base de datos
         DatabaseHelper dbHelper = new DatabaseHelper(this);
 
-        Cursor cursor = dbHelper.getAllScoresNivelUno();  // Llama al método aquí
+        Cursor cursor = dbHelper.getAllScoresNivelUno();
 
         // Configurar el adaptador en la lista utilizando SimpleCursorAdapter
-        String[] fromColumns = {DatabaseHelper.getColumnName(), DatabaseHelper.getColumnNivelUnoScore()};
-        int[] toViews = {android.R.id.text1, android.R.id.text2}; // Utiliza los identificadores predeterminados para TextView
+        String[] fromColumns = {"jugador", "menor_puntuacion"};
+        int[] toViews = {android.R.id.text1, android.R.id.text2};
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 this,
@@ -46,8 +43,6 @@ public class PuntuacionNvlUnoActivity extends AppCompatActivity {
         );
 
         listViewPuntuaciones.setAdapter(adapter);
-
-       //boton volver al mainactivity
         Button btnVolverMenu = findViewById(R.id.btnVolverMenu);
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
             @Override

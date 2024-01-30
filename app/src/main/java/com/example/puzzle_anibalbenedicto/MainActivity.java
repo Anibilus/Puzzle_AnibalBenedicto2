@@ -31,26 +31,20 @@ public class MainActivity extends AppCompatActivity {
         btnEmpezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Obtener el nombre ingresado
                 String nombre = (editNombre != null) ? editNombre.getText().toString() : "";
 
-                // Verificar si se ingresó un nombre
                 if (!nombre.isEmpty()) {
-                    // Almacenar el nombre en SharedPreferences (podrías utilizar una base de datos)
                     SharedPreferences preferences = getApplicationContext().getSharedPreferences("UsuarioPreferences", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("nombreUsuario", nombre);
                     editor.apply();
 
-                    // Ir al selector de niveles
                     Intent intent = new Intent(MainActivity.this, SelectorNivelesActivity.class);
                     startActivity(intent);
                 } else {
-                    // Mostrar un mensaje de error si no se ingresó un nombre
                     Toast.makeText(MainActivity.this, "Por favor, ingrese su nombre", Toast.LENGTH_SHORT).show();
                 }
 
-                // Iniciar o pausar la música según el estado actual
                 toggleMusic();
             }
         });
@@ -58,11 +52,9 @@ public class MainActivity extends AppCompatActivity {
         btnPuntuaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Ir a puntuaciones
                 Intent intent = new Intent(MainActivity.this, PuntuacionesMenuActivity.class);
                 startActivity(intent);
 
-                // Iniciar o pausar la música según el estado actual
                 toggleMusic();
             }
         });

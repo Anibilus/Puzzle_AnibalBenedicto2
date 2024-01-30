@@ -14,9 +14,7 @@ import com.example.puzzle_anibalbenedicto.DatabaseHelper;
 import com.example.puzzle_anibalbenedicto.MainActivity;
 import com.example.puzzle_anibalbenedicto.R;
 public class PuntuacionNvlDosActivity extends AppCompatActivity {
-
     private ListView listViewPuntuaciones;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,32 +22,10 @@ public class PuntuacionNvlDosActivity extends AppCompatActivity {
 
         listViewPuntuaciones = findViewById(R.id.listViewPuntuacionesNvlDos);
 
-        // Consultar las puntuaciones del nivel 2 desde la base de datos
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        String[] projection = {
-                DatabaseHelper.getColumnId(),
-                DatabaseHelper.getColumnName(),
-                DatabaseHelper.getColumnScore(),
-                DatabaseHelper.getColumnNivelDosScore()
-        };
-
-        String selection = DatabaseHelper.getColumnNivelDosId() + " = ?";
-        String[] selectionArgs = {"2"};
-
-        Cursor cursor = db.query(
-                DatabaseHelper.getTableScoresNivelDos(),
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                DatabaseHelper.getColumnNivelDosScore() + " ASC"
-        );
-        String[] fromColumns = {DatabaseHelper.getColumnName(), DatabaseHelper.getColumnNivelDosScore()};
+        Cursor cursor = dbHelper.getAllScoresNivelDos();
+        String[] fromColumns = {"jugador", "menor_puntuacion"};
         int[] toViews = {android.R.id.text1, android.R.id.text2};
-
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 this,
                 android.R.layout.simple_list_item_2,
@@ -58,7 +34,6 @@ public class PuntuacionNvlDosActivity extends AppCompatActivity {
                 toViews,
                 0
         );
-
         listViewPuntuaciones.setAdapter(adapter);
         Button btnVolverMenu = findViewById(R.id.btnVolverMenu);
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
@@ -68,5 +43,7 @@ public class PuntuacionNvlDosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }
+
