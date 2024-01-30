@@ -2,4 +2,6 @@
 <resources>
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="puzzle_button_size">80dp</dimen>
+    <dimen name="puzzle_button_margin">-4dp</dimen>
 </resources>

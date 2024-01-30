@@ -32,29 +32,27 @@ public class PuntuacionNvlDosActivity extends AppCompatActivity {
                 DatabaseHelper.getColumnId(),
                 DatabaseHelper.getColumnName(),
                 DatabaseHelper.getColumnScore(),
-                DatabaseHelper.getColumnNivelDosScore() // Cambiado a nivel dos
+                DatabaseHelper.getColumnNivelDosScore()
         };
 
         String selection = DatabaseHelper.getColumnNivelDosId() + " = ?";
-        String[] selectionArgs = {"1"}; // Puedes cambiar esto según tus necesidades
+        String[] selectionArgs = {"2"};
 
         Cursor cursor = db.query(
-                DatabaseHelper.getTableScoresNivelDos(), // Cambiado a nivel dos
+                DatabaseHelper.getTableScoresNivelDos(),
                 projection,
                 selection,
                 selectionArgs,
                 null,
                 null,
-                DatabaseHelper.getColumnNivelDosScore() + " ASC" // Puedes ordenar por score
+                DatabaseHelper.getColumnNivelDosScore() + " ASC"
         );
-
-        // Configurar el adaptador en la lista utilizando SimpleCursorAdapter
         String[] fromColumns = {DatabaseHelper.getColumnName(), DatabaseHelper.getColumnNivelDosScore()};
-        int[] toViews = {android.R.id.text1, android.R.id.text2}; // Utiliza los identificadores predeterminados para TextView
+        int[] toViews = {android.R.id.text1, android.R.id.text2};
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 this,
-                android.R.layout.simple_list_item_2, // Diseño predeterminado de Android con dos líneas
+                android.R.layout.simple_list_item_2,
                 cursor,
                 fromColumns,
                 toViews,
@@ -62,7 +60,6 @@ public class PuntuacionNvlDosActivity extends AppCompatActivity {
         );
 
         listViewPuntuaciones.setAdapter(adapter);
-        //boton para volver al mainActivity
         Button btnVolverMenu = findViewById(R.id.btnVolverMenu);
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
             @Override
